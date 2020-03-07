@@ -9,15 +9,15 @@ SBT = sbt -mem 4096
 # Generate Verilog code
 
 top:
-	$(SBT) "runMain simple.TopMain"
+	$(SBT) "runMain top.TopMain"
 
 top-test:
-	$(SBT) "test:runMain simple.TopTester --backend-name verilator"
+	$(SBT) "test:runMain top.TopTester --backend-name verilator"
 
 GTKWAVE = /Applications/gtkwave.app/Contents/Resources/bin/gtkwave
 
 view:
-	$(GTKWAVE) ./test_run_dir/simple.TopTester1534458474/Top.gtkw
+	$(GTKWAVE) ./test_run_dir/Top.gtkw
 
 # clean everything (including IntelliJ project settings)
 
