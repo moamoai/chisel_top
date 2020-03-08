@@ -14,7 +14,7 @@ result = 1
 # ser.write(0x0)
 # ser.write(0x1)
 
-for i in range(256):
+for i in range(0, 256, 4):
   txd = i.to_bytes(1, 'big')
   ser.write(b'w') # memory write
   ser.write(txd)  # addr
@@ -23,7 +23,7 @@ for i in range(256):
   # rxd = ser.read(1)
   time.sleep(MARGIN)
 
-for i in range(256):
+for i in range(0, 256, 4):
   addr = i.to_bytes(1, 'big')
   ser.write(b'm') # memory read
   ser.write(addr)  # addr

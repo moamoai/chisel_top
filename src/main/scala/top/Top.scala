@@ -9,9 +9,9 @@ package top
 import chisel3._
 import chisel3.util._
 import uart.Uart
-import uart.Memory
+// import uart.Memory
 // import riscv.Memory_BD
-// import riscv.Memory
+import riscv.Memory
 // import riscv.RiscV
 
 /**
@@ -41,7 +41,7 @@ class Top(TIME_BAUD:UInt = 1085.U(16.W)) extends Module {
   i_mem.io.we     := i_uart.io.we
   i_mem.io.addr   := i_uart.io.addr
   i_mem.io.wdata  := i_uart.io.wdata
-//  i_mem.io.addr2  := 0.U
+  i_mem.io.addr2  := 0.U
 
 //  val i_mem  = Module(new Memory_BD)
 //  i_mem.io.if_mem_bd.bd_en := 1.U
