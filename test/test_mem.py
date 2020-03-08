@@ -27,8 +27,8 @@ for i in range(0, 256, 4):
   addr = i.to_bytes(1, 'big')
   ser.write(b'm') # memory read
   ser.write(addr)  # addr
-  ser.write(b'0')  # none
-  # ser.write(0x0)  # none
+  # ser.write(b'0')  # none
+  ser.write(bytes([0]))  # none
   #time.sleep(MARGIN) # 1ms
   rxd = ser.read(1)
   # time.sleep(MARGIN) # 1ms

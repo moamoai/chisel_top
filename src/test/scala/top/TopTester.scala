@@ -109,32 +109,35 @@ class TopTester(dut: Top) extends PeekPokeTester(dut) {
 
   // 4B Memory Write/Read
   var a_CHAR  = 0x61
-  ADDR    = 0x00
   WDATA   = 0x10
   // 01f00293 05 0000001f 8000007c 80000080 // li t0, 31
-  WDATA = 0x01f00293
-  send_uart(a_CHAR)
-  send_uart(ADDR) 
-  // send_uart(0x93)
-  // send_uart(0x00)
-  // send_uart(0xf0)
-  // send_uart(0x01)
-  var send_data = 0
+  // WDATA = 0x01f00293
   for (i <- 0 until 4) {
-    send_data = (WDATA >>> (i*8))&0xFF
-    // println(f"send_data [0x$send_data%08x]") 
-    // send_uart(WDATA + i)
-    send_uart(send_data) // unsigned shift
-  }
-  for (i <- 0 until 4) {
-    send_uart(M_CHAR)
-    send_uart(ADDR)
-    send_uart(i, 1)
-    rdata = receive_data()
-    send_data = (WDATA >>> (i*8))&0xFF
-    if(rdata !=send_data){
-      println("#[NG] Error 4B Write rdata=" + rdata.toString)
-   }
+    ADDR  = 4*i
+    WDATA = (i*0x11111111)
+    send_uart(a_CHAR)
+    send_uart(ADDR) 
+    // send_uart(0x93)
+    // send_uart(0x00)
+    // send_uart(0xf0)
+    // send_uart(0x01)
+    var send_data = 0
+    for (i <- 0 until 4) {
+      send_data = (WDATA >>> (i*8))&0xFF
+      // println(f"send_data [0x$send_data%08x]") 
+      // send_uart(WDATA + i)
+      send_uart(send_data) // unsigned shift
+    }
+    for (i <- 0 until 4) {
+      send_uart(M_CHAR)
+      send_uart(ADDR)
+      send_uart(i, 1)
+      rdata = receive_data()
+      send_data = (WDATA >>> (i*8))&0xFF
+      if(rdata !=send_data){
+        println("#[NG] Error 4B Write rdata=" + rdata.toString)
+     }
+    }
   }
 
   // Inst ready
