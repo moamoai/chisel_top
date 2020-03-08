@@ -25,8 +25,8 @@ class Top(TIME_BAUD:UInt = 1085.U(16.W)) extends Module {
     val GPIO   = Output(UInt(8.W))
   })
 
-  // val i_uart = Module(new Uart(TIME_BAUD, 32, 32))
-  val i_uart = Module(new Uart(TIME_BAUD, 8, 8))
+  val i_uart = Module(new Uart(TIME_BAUD, 32, 32))
+  // val i_uart = Module(new Uart(TIME_BAUD, 8, 8))
   i_uart.io.RD := io.RD
   io.TD        := i_uart.io.TD
 
