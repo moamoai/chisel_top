@@ -10,9 +10,9 @@ MARGIN=0.001
 result = 1
 
 # # bd_en=1
-# ser.write(b'o')
-# ser.write(0x0)
-# ser.write(0x1)
+ser.write(b'o')
+ser.write(bytes([0x0]))
+ser.write(bytes([0x1]))
 
 for i in range(0, 256, 4):
   txd = i.to_bytes(1, 'big')
