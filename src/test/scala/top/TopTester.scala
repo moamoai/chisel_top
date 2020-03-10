@@ -9,7 +9,9 @@ import chisel3._
 import chisel3.iotesters.PeekPokeTester
 
 object OBJ_TEST {
-  val TIME_BAUD  = 16
+  val TIME_BAUD      = 32
+  val TIME_BAUD_Top  = 16
+  //val TIME_BAUD  = 16
 }
 
 /**
@@ -179,7 +181,7 @@ object TopTester extends App {
 
   iotesters.Driver.execute(Array[String]("--generate-vcd-output", "on",
                         "--fint-write-vcd", "--wave-form-file-name", "test_run_dir/Top.vcd"),
-                        () => new Top(OBJ_TEST.TIME_BAUD.U)) {
+                        () => new Top(OBJ_TEST.TIME_BAUD_Top.U)) {
     dut => new TopTester(dut)
   }
 }

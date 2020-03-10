@@ -33,3 +33,5 @@ set_property IOSTANDARD LVCMOS33 [get_ports {io_GPIO[1]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {io_GPIO[0]}]
 
 create_clock -period 8.000 -name clock -waveform {0.000 4.000} [get_ports clock]
+
+create_generated_clock -name clk_div2 -source [get_ports clock] -divide_by 2 [get_pins i_div2/r_clock_reg/Q]
