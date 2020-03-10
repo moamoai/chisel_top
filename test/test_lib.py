@@ -28,9 +28,12 @@ def GET_MONI(vec):
   
 def reg_dump():
   for i in range(0, 32):
-    GPIO_SET(1, i)    # [4:0] reg_sel
-    mon = GET_MONI(3) # info_rf(reg_sel
-    print("REG[0x{0:02x}] MONI[0x{1:02x}]".format(i, mon))
+    reg = 0
+    for j in range(0,4):
+      GPIO_SET(1, (j<<5)+i)    # [6:5]rstrb [4:0] reg_sel
+      mon = GET_MONI(3) # info_rf(reg_sel
+      reg += (mon << 8*j)
+    print("REG[0x{0:02x}] DATA[0x{1:08x}]".format(i, reg))
    
  
 def mem_write_4B(addr, wdata):

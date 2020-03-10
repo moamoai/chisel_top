@@ -109,12 +109,11 @@ class TopTester(dut: Top) extends PeekPokeTester(dut) {
 
   // 4B Memory Write/Read
   var a_CHAR  = 0x61
-  WDATA   = 0x10
   // 01f00293 05 0000001f 8000007c 80000080 // li t0, 31
-  // WDATA = 0x01f00293
-  for (i <- 0 until 4) {
+  var INST = 0x01f00293
+  for (i <- 0 until 2) {
     ADDR  = 4*i
-    WDATA = (i*0x11111111)
+    WDATA = INST + (i*0x11111111)
     send_uart(a_CHAR)
     send_uart(ADDR) 
     // send_uart(0x93)
@@ -149,6 +148,11 @@ class TopTester(dut: Top) extends PeekPokeTester(dut) {
   send_uart(o_CHAR)
   send_uart(0x0) 
   send_uart(0x4) // inst_valid = 1
+
+  send_uart(S_CHAR)
+  send_uart(0x1) // Vec(1)
+  send_uart(0x0, 1)
+  rdata = receive_data()
 
   send_uart(o_CHAR)
   send_uart(0x0) 

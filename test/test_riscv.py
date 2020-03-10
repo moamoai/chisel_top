@@ -21,25 +21,57 @@ def mem_write():
 
   GPIO_SET(0, 0) # bd_en=0
 
-# mem_write();
-while(1):
-  cmd = input()
-  if(cmd=="reg_dump"):
+from cmd import Cmd
+
+class MyPrompt(Cmd):
+  def do_exit(self, inp):
+    print("Bye")
+    return True
+  def do_mem_write(self, inp):
+    mem_write()
+  def do_add(self, inp):
+    print("Adding '{}'".format(inp))
+  def default(self, inp):
+    if inp == 'x' or inp == 'q':
+      return self.do_exit(inp)
+    print("Default: {}".format(inp))
+  def do_reg_dump(self, inp):
     reg_dump()
-  elif(cmd=="start"):
+  def do_start(self,inp):
     GPIO_SET(0, 2) # start = 1
     GPIO_SET(0, 0) # start = 0
     status = GET_MONI(1)  # [0] inst_ready [1]error
     addr   = GET_MONI(2)  # [7:0] inst_addr
     print("[start] status: {0:08b} addr:0x{1:02x}".format(status, addr))
-  elif(cmd=="valid"):
+  def do_valid(self, inp):
     GPIO_SET(0, 4) # inst_valid = 1
     GPIO_SET(0, 0) # inst_valid = 0
     status = GET_MONI(1)  # [0] inst_ready [1]error
     addr   = GET_MONI(2)  # [7:0] inst_addr
     print("[valid] status: {0:08b} addr:0x{1:02x}".format(status, addr))
-  elif(cmd=="quit"):
-    break;
+
+MyPrompt().cmdloop()
+print("after")
+
+# # mem_write();
+# while(1):
+#   cmd = input()
+#   if(cmd=="reg_dump"):
+#     reg_dump()
+#   elif(cmd=="start"):
+#     GPIO_SET(0, 2) # start = 1
+#     GPIO_SET(0, 0) # start = 0
+#     status = GET_MONI(1)  # [0] inst_ready [1]error
+#     addr   = GET_MONI(2)  # [7:0] inst_addr
+#     print("[start] status: {0:08b} addr:0x{1:02x}".format(status, addr))
+#   elif(cmd=="valid"):
+#     GPIO_SET(0, 4) # inst_valid = 1
+#     GPIO_SET(0, 0) # inst_valid = 0
+#     status = GET_MONI(1)  # [0] inst_ready [1]error
+#     addr   = GET_MONI(2)  # [7:0] inst_addr
+#     print("[valid] status: {0:08b} addr:0x{1:02x}".format(status, addr))
+#   elif(cmd=="quit"):
+#     break;
 
 # 
 # 
