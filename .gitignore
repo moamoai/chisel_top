@@ -4,10 +4,11 @@ test_run_dir/*
 generated/*.json
 generated/*.fir
 *bat
-vivado/project_1/*.log
-vivado/project_1/*.jou
-vivado/project_1/project_1.runs/*
-vivado/project_1/project_1.cache/*
-vivado/project_1/project_1.hw/*
-vivado/project_1/*.str
+vivado/project_*/*.log
+vivado/project_*/*.jou
+vivado/project_*/project_*.runs/*
+vivado/project_*/project_*.cache/*
+vivado/project_*/project_*.hw/*
+vivado/project_*/*.str
 *.dat
+*.pyc

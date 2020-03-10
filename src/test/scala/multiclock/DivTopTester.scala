@@ -15,8 +15,8 @@ object OBJ_TEST {
 /**
  * Test the counter by printing out the value at each clock cycle.
  */
-// class TopTester(dut: Top) extends UartTester(dut) {
-class TopTester(dut: Top) extends PeekPokeTester(dut) {
+// class DivTopTester(dut: DivTop) extends UartTester(dut) {
+class DivTopTester(dut: DivTop) extends PeekPokeTester(dut) {
   step(20)
 }
 
@@ -24,11 +24,11 @@ class TopTester(dut: Top) extends PeekPokeTester(dut) {
 /**
  * Create a counter and a tester.
  */
-object TopTester extends App {
+object DivTopTester extends App {
 
   iotesters.Driver.execute(Array[String]("--generate-vcd-output", "on",
                         "--fint-write-vcd", "--wave-form-file-name", "test_run_dir/div.vcd"),
-                        () => new Top()) {
-    dut => new TopTester(dut)
+                        () => new DivTop()) {
+    dut => new DivTopTester(dut)
   }
 }

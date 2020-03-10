@@ -15,16 +15,17 @@ top-test:
 	$(SBT) "test:runMain top.TopTester --backend-name verilator"
 
 div:
-	$(SBT) "runMain multiclock.TopMain"
+	$(SBT) "runMain multiclock.DivTopMain"
 
 div-test:
-	$(SBT) "test:runMain multiclock.TopTester --backend-name verilator"
+	$(SBT) "test:runMain multiclock.DivTopTester --backend-name verilator"
 
 GTKWAVE = /Applications/gtkwave.app/Contents/Resources/bin/gtkwave
 
 view:
-	$(GTKWAVE) ./test_run_dir/multiclock.TopTester522653306/Top.vcd
-	# $(GTKWAVE) ./test_run_dir/Top.gtkw
+	# $(GTKWAVE) ./test_run_dir/multiclock.DivTopTester930458331/DivTop.vcd
+	# $(GTKWAVE) ./test_run_dir/multiclock.TopTester522653306/Top.vcd
+	$(GTKWAVE) ./test_run_dir/Top.gtkw
 
 # clean everything (including IntelliJ project settings)
 

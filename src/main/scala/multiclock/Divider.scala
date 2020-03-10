@@ -10,29 +10,29 @@ import chisel3._
 import chisel3.util._
 
 
-class Top() extends Module{
+class DivTop() extends Module{
   val io = IO(new Bundle {
     val out = Output(UInt(4.W))
   })
 
   val clk_div2 = Wire(Clock())
-  val clk_div4 = Wire(Clock())
-  val clk_div8 = Wire(Clock())
-
+//  val clk_div4 = Wire(Clock())
+//  val clk_div8 = Wire(Clock())
+//
   val i_div2 = Module(new Divider)
   clk_div2 := i_div2.io.clock
+//
+//  withClock (clk_div2) {
+//    val i_div4 = Module(new Divider)
+//    clk_div4 := i_div4.io.clock
+//  }
+//
+//  withClock (clk_div4) {
+//    val i_div8 = Module(new Divider)
+//    clk_div8 := i_div8.io.clock
+//  }
 
   withClock (clk_div2) {
-    val i_div4 = Module(new Divider)
-    clk_div4 := i_div4.io.clock
-  }
-
-  withClock (clk_div4) {
-    val i_div8 = Module(new Divider)
-    clk_div8 := i_div8.io.clock
-  }
-
-  withClock (clk_div8) {
     val r_cnt = RegInit(0.U(4.W))
     r_cnt := r_cnt + 1.U
     io.out := r_cnt
@@ -81,8 +81,8 @@ object DividerMain extends App {
   chisel3.Driver.execute(Array("--target-dir", "generated"), () => new Divider())
 }
 
-object TopMain extends App {
-  println("Generating the Top hardware")
-  chisel3.Driver.execute(Array("--target-dir", "generated"), () => new Top())
+object DivTopMain extends App {
+  println("Generating the DivTop hardware")
+  chisel3.Driver.execute(Array("--target-dir", "generated"), () => new DivTop())
 }
 
